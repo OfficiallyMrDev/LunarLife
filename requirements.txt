@@ -20,3 +20,5 @@ scikit-learn>=1.3.0
 
 # For PDF or file handling if needed
 PyPDF2>=3.0.1
+
+rake_nltk

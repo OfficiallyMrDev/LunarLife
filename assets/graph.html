@@ -1,0 +1,170 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+             #config {
+                 float: left;
+                 width: 400px;
+                 height: 600px;
+             }
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+            <div id="config"></div>
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "Mice in Bion-M 1 space mission: training and selection", "label": "Mice in Bion-M 1 space mission: training and selection", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Microgravity induces pelvic bone loss through osteoclastic activity, osteocytic osteolysis, and osteoblastic cell cycle inhibition by CDKN1a/p21", "label": "Microgravity induces pelvic bone loss through osteoclastic activity, osteocytic osteolysis, and osteoblastic cell cycle inhibition by CDKN1a/p21", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Stem Cell Health and Tissue Regeneration in Microgravity", "label": "Stem Cell Health and Tissue Regeneration in Microgravity", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Microgravity Reduces the Differentiation and Regenerative Potential of Embryonic Stem Cells", "label": "Microgravity Reduces the Differentiation and Regenerative Potential of Embryonic Stem Cells", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Microgravity validation of a novel system for RNA isolation and multiplex quantitative real time PCR analysis of gene expression on the International Space Station", "label": "Microgravity validation of a novel system for RNA isolation and multiplex quantitative real time PCR analysis of gene expression on the International Space Station", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Spaceflight Modulates the Expression of Key Oxidative Stress and Cell Cycle Related Genes in Heart", "label": "Spaceflight Modulates the Expression of Key Oxidative Stress and Cell Cycle Related Genes in Heart", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Dose- and Ion-Dependent Effects in the Oxidative Stress Response to Space-Like Radiation Exposure in the Skeletal System", "label": "Dose- and Ion-Dependent Effects in the Oxidative Stress Response to Space-Like Radiation Exposure in the Skeletal System", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "From the bench to exploration medicine: NASA life sciences translational research for human exploration and habitation missions.", "label": "From the bench to exploration medicine: NASA life sciences translational research for human exploration and habitation missions.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "High-precision method for cyclic loading of small-animal vertebrae to assess bone quality.", "label": "High-precision method for cyclic loading of small-animal vertebrae to assess bone quality.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Effects of ex vivo ionizing radiation on collagen structure and whole-bone mechanical properties of mouse vertebrae.", "label": "Effects of ex vivo ionizing radiation on collagen structure and whole-bone mechanical properties of mouse vertebrae.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Absence of gamma-sarcoglycan alters the response of p70S6 kinase to mechanical perturbation in murine skeletal muscle", "label": "Absence of gamma-sarcoglycan alters the response of p70S6 kinase to mechanical perturbation in murine skeletal muscle", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "AtRabD2b and AtRabD2c have overlapping functions in pollen development and pollen tube growth.", "label": "AtRabD2b and AtRabD2c have overlapping functions in pollen development and pollen tube growth.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "TNO1 is involved in salt tolerance and vacuolar trafficking in Arabidopsis.", "label": "TNO1 is involved in salt tolerance and vacuolar trafficking in Arabidopsis.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Functional redundancy between trans-Golgi network SNARE family members in Arabidopsis thaliana.", "label": "Functional redundancy between trans-Golgi network SNARE family members in Arabidopsis thaliana.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Root growth movements: Waving and skewing.", "label": "Root growth movements: Waving and skewing.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Gravitropism and lateral root emergence are dependent on the trans-Golgi network protein TNO1", "label": "Gravitropism and lateral root emergence are dependent on the trans-Golgi network protein TNO1", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "TNO1, a TGN-localized SNARE-interacting protein, modulates root skewing in Arabidopsis thaliana.", "label": "TNO1, a TGN-localized SNARE-interacting protein, modulates root skewing in Arabidopsis thaliana.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "The Drosophila SUN protein Spag4 cooperates with the coiled-coil protein Yuri Gagarin to maintain association of the basal body and spermatid nucleus.", "label": "The Drosophila SUN protein Spag4 cooperates with the coiled-coil protein Yuri Gagarin to maintain association of the basal body and spermatid nucleus.", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Toll mediated infection response is altered by gravity and spaceflight in Drosophila", "label": "Toll mediated infection response is altered by gravity and spaceflight in Drosophila", "shape": "dot", "size": 15, "type": "publication"}, {"color": "#97c2fc", "id": "Multi-omics analysis of multiple missions to space reveal a theme of lipid dysregulation in mouse liver", "label": "Multi-omics analysis of multiple missions to space reveal a theme of lipid dysregulation in mouse liver", "shape": "dot", "size": 15, "type": "publication"}]);
+                  edges = new vis.DataSet([]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+                  // if this network requires displaying the configure window,
+                  // put it in its div
+                  options.configure["container"] = document.getElementById("config");
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

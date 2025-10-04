@@ -5,8 +5,18 @@ import requests
 import subprocess
 import json
 
-def summarize_with_openai(title, abstract):
-    prompt = f"Title: {title}\nAbstract: {abstract}\n\nSummarize this publication in one sentence."
+def summarize_with_openai(title, abstract, results=None, conclusion=None):
+    if results or conclusion:
+        combined_abstract = ""
+        if abstract:
+            combined_abstract += abstract + "\n"
+        if results:
+            combined_abstract += "Results: " + results + "\n"
+        if conclusion:
+            combined_abstract += "Conclusion: " + conclusion
+    else:
+        combined_abstract = abstract
+    prompt = f"Please summarize the following publication in three sections: Introduction, Results, Conclusion.\nTitle: {title}\nContent: {combined_abstract}"
     try:
         response = openai.chat.completions.create(
             model="gpt-4",
@@ -17,11 +27,21 @@ def summarize_with_openai(title, abstract):
     except Exception as e:
         return f"Error: {e}"
 
-def summarize_with_ollama(title, abstract, model="gpt-oss:20b-cloud"):
+def summarize_with_ollama(title, abstract, results=None, conclusion=None, model="gpt-oss:20b-cloud"):
     """
     Ollama CLI: runs a local Ollama model via subprocess.
     """
-    prompt = f"Title: {title}\nAbstract: {abstract}\n\nSummarize this publication in one sentence."
+    if results or conclusion:
+        combined_abstract = ""
+        if abstract:
+            combined_abstract += abstract + "\n"
+        if results:
+            combined_abstract += "Results: " + results + "\n"
+        if conclusion:
+            combined_abstract += "Conclusion: " + conclusion
+    else:
+        combined_abstract = abstract
+    prompt = f"Please summarize the following publication in three sections: Introduction, Results, Conclusion.\nTitle: {title}\nContent: {combined_abstract}"
     try:
         result = subprocess.run(
             ["ollama", "run", model, prompt],
@@ -36,10 +56,10 @@ def summarize_with_ollama(title, abstract, model="gpt-oss:20b-cloud"):
     except subprocess.CalledProcessError as e:
         return f"Error: {e}"
 
-def summarize(title, abstract, method="openai"):
+def summarize(title, abstract, method="openai", results=None, conclusion=None):
     if method == "openai":
-        return summarize_with_openai(title, abstract)
+        return summarize_with_openai(title, abstract, results=results, conclusion=conclusion)
     elif method == "ollama":
-        return summarize_with_ollama(title, abstract)
+        return summarize_with_ollama(title, abstract, results=results, conclusion=conclusion)
     else:
         return f"Error: Unknown method '{method}'. Choose 'openai' or 'ollama'."

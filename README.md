@@ -62,14 +62,21 @@ nasa-bio-explorer/
 
 ```
 
-4. Run the app:
+4. Run "fetch_abstracts.py" to fetch the publications with the abstracts:
+
+```bash
+ python run fetch_abstracts.py"
+
+```
+
+5. Run the app:
 
    ```bash
    streamlit run app.py
 
    ```
 
-5. Open in your browser at:
+6. Open in your browser at:
    ```bash
    http://localhost:8501
    ```
