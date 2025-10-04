@@ -90,8 +90,3 @@ Developed for the NASA Space Apps Challenge 2025.
 Powered by open-source tools, AI, and NASA data. 🌍🚀
 
 ---
-
-This README gives you a **professional repo landing page**.  
-👉 If you push this to GitHub + include your demo slides/video link, you’ll already meet NASA submission requirements.
-
-Do you want me to also draft the **7-slide deck outline** for your demo (so you can quickly make it in Canva/Google Slides)?
