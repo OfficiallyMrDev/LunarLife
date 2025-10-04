@@ -64,16 +64,16 @@ LunarLife /
    export OPENAI_API_KEY="your_openai_api_key"
    ```
 
-4. Run "fetch_abstracts.py" to fetch the publications with the abstracts:
+4. Run "fetch_abstracts.py" to fetch the publications with the abstracts (If publications_with_abstracts.csv doesn't exist): SKIP
 
    ```bash
-   python run fetch_abstracts.py"
+   python run fetch_abstracts.py
    ```
 
 5. Run the app:
 
    ```bash
-   streamlit run app.py
+   streamlit run Dashboard.py
    ```
 
 6. Open in your browser at:
