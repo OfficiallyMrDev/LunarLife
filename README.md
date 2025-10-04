@@ -1,4 +1,4 @@
-# 🚀 LunarLife 
+# 🚀 LunarLife
 
 **LunarLife** is an interactive AI-powered dashboard that helps scientists, mission planners, and enthusiasts explore 600+ NASA Space Biology publications.
 
@@ -48,8 +48,8 @@ LunarLife /
 1. Clone the repo:
 
    ```bash
-   git clone https://github.com/your-username/nasa-bio-explorer.git
-   cd nasa-bio-explorer
+   git clone https://github.com/OfficiallyMrDev/LunarLife.git
+   cd LunarLife
    ```
 
 2. Install dependencies:
