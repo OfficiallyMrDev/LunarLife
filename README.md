@@ -1,6 +1,6 @@
-# 🚀 LunarLife
+# 🚀 Project LunarLife
 
-**LunarLife** is an interactive AI-powered dashboard that helps scientists, mission planners, and enthusiasts explore 600+ NASA Space Biology publications.
+**Project LunarLife** is an interactive AI-powered dashboard that helps scientists, mission planners, and enthusiasts explore 600+ NASA Space Biology publications.
 
 It uses **AI summarization, knowledge graphs, and intelligent search** to uncover the impact of decades of space bioscience research and highlight insights relevant to **future missions to the Moon and Mars**.
 
@@ -18,7 +18,7 @@ It uses **AI summarization, knowledge graphs, and intelligent search** to uncove
 ## 📂 Project Structure
 
 ```
-LunarLife /
+Project LunarLife /
 │── app.py                     # Main Streamlit app (search + summaries + knowledge graph)
 │── fetch_abstracts.py         # To pull the abstracts via NCBI
 │── requirements.txt           # Python dependencies

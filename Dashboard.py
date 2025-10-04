@@ -9,8 +9,8 @@ from src.summarizer import summarize
 st.set_page_config(page_title="LunarLife", page_icon="🚀", layout="wide")
 
 # --- Banner with logo/header image ---
-st.image("assets/nasa_logo.png", width=150)
-st.title("🚀 LunarLife ")
+st.image("assets/logorm.png", width=150)
+st.title("Project LunarLife ")
 st.markdown("Explore NASA space biology publications with AI-powered summaries and interactive visualizations.")
 
 # --- Load Data ---
