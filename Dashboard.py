@@ -1,68 +1,67 @@
-# app.py
 import streamlit as st
-import pandas as pd
-from src.preprocess import load_and_clean
-from src.search import search_publications
-from src.knowledge_graph import build_graph, visualize_graph
-from src.summarizer import summarize
 
-st.set_page_config(page_title="LunarLife", page_icon="🚀", layout="wide")
+st.set_page_config(page_title="LunarLife Menu", page_icon="🚀", layout="wide")
 
-# --- Banner with logo/header image ---
-st.image("assets/logorm.png", width=150)
-st.title("Project LunarLife ")
-st.markdown("Explore NASA space biology publications with AI-powered summaries and interactive visualizations.")
+st.sidebar.image("assets/logorm.png", width=120)
+st.sidebar.markdown("<h2>Project LunarLife</h2>", unsafe_allow_html=True)
 
-# --- Load Data ---
-@st.cache_data
-def load_data():
-    return load_and_clean("data/publications_with_abstracts.csv")
+page_style = """
+    <style>
+    body {
+        background-color: #0d1117;
+        color: #ffffff;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .centered {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .description-box {
+        padding: 40px;
+        border-radius: 15px;
+        max-width: 800px;
+        margin: 20px auto;
+        font-size: 18px;
+        background: linear-gradient(135deg, rgba(30,30,30,0.8), rgba(50,50,50,0.8));
+        color: #ffffff;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: left;
+    }
+    .description-box:hover {
+        transform: scale(1.03);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    ul {
+        line-height: 1.8;
+    }
+    </style>
+"""
+st.markdown(page_style, unsafe_allow_html=True)
 
-df = load_data()
-
-# --- Sidebar: Search & Settings ---
-with st.sidebar:
-    with st.expander("Search Publications", expanded=True):
-        query = st.text_input("Enter keyword to search publications")
-    with st.expander("Summarization Settings", expanded=True):
-        ai_choice = st.selectbox("Summarization AI", ["OpenAI", "Ollama"])
-        max_results = st.slider("Max results to display", 1, 20, 5)
-        include_results_conclusion = st.checkbox("Include Results and Conclusion in summary", value=True)
-
-# --- Filter Publications ---
-if query:
-    # Filter publications by keyword in title or abstract
-    filtered_df = df[
-        df['title'].str.contains(query, case=False, na=False) |
-        df['abstract'].str.contains(query, case=False, na=False)
-    ]
-else:
-    filtered_df = df.copy()
-
-st.subheader(f"Showing {min(len(filtered_df), max_results)} publications")
-
-for idx, row in filtered_df.head(max_results).iterrows():
-    badge = "" if include_results_conclusion else ""
-    expander_label = f"[{row['title']}]({row['link']}) {badge}"
-    with st.expander(expander_label, expanded=False):
-        combined_text = row['abstract']
-        if include_results_conclusion:
-            combined_text += f" {row.get('results', '')} {row.get('conclusion', '')}"
-        combined_text = combined_text.strip()[:2000]  # Truncate to max 2000 characters
-        
-        # Generate and display AI summary of the full abstract + optional results + conclusion
-        with st.spinner("Generating summary..."):
-            prompt_text = f"Please summarize the following publication in three sections: Introduction, Results, Conclusion.\nTitle: {row['title']}\nContent: {combined_text}"
-            summary = summarize(row['title'], prompt_text, ai_choice.lower())
-        st.markdown("**Summary:**")
-        st.code(summary)
-        
-        # Follow-up Q&A box
-        question = st.text_area(f"Ask a question about this publication:", key=f"q_{idx}")
-        if question:
-            with st.spinner("Generating answer..."):
-                combined_question_text = f"{question} {combined_text}".strip()[:2000]  # Truncate to max 2000 characters
-                answer = summarize(question, combined_text, ai_choice.lower())
-            st.markdown("**Answer:**")
-            st.code(answer)
-    st.markdown("---")
+st.image("assets/logorm.png", width=150,  use_container_width=False)
+st.markdown(
+    """
+    <div class="description-box">
+        <h2>🚀 LunarLife</h2>
+        <p>
+            LunarLife is an interactive AI-powered dashboard that helps scientists, mission planners, and enthusiasts explore 600+ NASA Space Biology publications.
+        </p>
+        <p>
+            It uses AI summarization, knowledge graphs, and intelligent search to uncover the impact of decades of space bioscience research and highlight insights relevant to future missions to the Moon and Mars.
+        </p>
+        <h3>🌌 Features</h3>
+        <ul style="list-style-type:none; padding-left:0; text-align:left;">
+            <li>🔍 <b>Smart Search:</b> Search publications by keywords (e.g., radiation, plants, immune system).</li>
+            <li>📝 <b>AI Summaries:</b> Automatic summarization of research abstracts using transformer models.</li>
+            <li>🧠 <b>Knowledge Graphs:</b> Visualize connections between studies, keywords, and biological systems.</li>
+            <li>📊 <b>Interactive Dashboard:</b> Built with Streamlit for fast, user-friendly exploration.</li>
+        </ul>
+    </div>
+    """,
+    unsafe_allow_html=True
+)

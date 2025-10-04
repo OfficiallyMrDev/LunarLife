@@ -27,6 +27,7 @@ def load_and_clean(csv_path="data/publications_with_abstracts.csv"):
     df['results'] = ""
     df['conclusion'] = ""
     
+    df = add_metadata(df)
     return df
 
 def extract_results_conclusion(url):
@@ -56,3 +57,19 @@ def extract_results_conclusion(url):
     
     except Exception as e:
         return "", ""
+
+def add_metadata(df):
+    organisms = ["mice", "rats", "plants", "humans", "yeast", "stem cells"]
+    experiment_types = ["microgravity", "radiation", "genomics", "bone loss", "immune", "stem cell"]
+    missions = ["ISS", "Bion-M 1", "Shuttle", "Artemis"]
+
+    df["organism"] = df["abstract"].apply(
+        lambda x: next((o for o in organisms if o.lower() in str(x).lower()), "Other")
+    )
+    df["experiment_type"] = df["abstract"].apply(
+        lambda x: next((e for e in experiment_types if e.lower() in str(x).lower()), "General")
+    )
+    df["mission"] = df["abstract"].apply(
+        lambda x: next((m for m in missions if m.lower() in str(x).lower()), "Unspecified")
+    )
+    return df
