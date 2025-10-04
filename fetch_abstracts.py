@@ -1,7 +1,7 @@
 from Bio import Entrez
 import pandas as pd
 
-Entrez.email = "devanshs149@gmail.com"  # required by NCBI
+Entrez.email = "example@email.com"  # required by NCBI (Put your email here)
 INPUT_CSV = "data/publications.csv"
 OUTPUT_CSV = "data/publications_with_abstracts.csv"
 

@@ -18,11 +18,11 @@ def build_graph(df):
                 G.add_edge(pub_node, kw_node)
     return G
 
-st.set_page_config(page_title="NASA Bio Explorer Knowledge Graph", page_icon="📊", layout="wide")
+st.set_page_config(page_title="LunarLife Knowledge Graph", page_icon="📊", layout="wide")
 
 # --- Banner / Header ---
 st.image("assets/nasa_logo.png", width=150)
-st.title("📊 NASA Bio Explorer Knowledge Graph")
+st.title("📊 LunarLife Knowledge Graph")
 st.markdown("Explore relationships between NASA space biology publications with an interactive knowledge graph.")
 
 # --- Load Data ---

@@ -1,6 +1,6 @@
-# 🚀 NASA Bio Explorer Dashboard
+# 🚀 LunarLife 
 
-**NASA Bio Explorer** is an interactive AI-powered dashboard that helps scientists, mission planners, and enthusiasts explore 600+ NASA Space Biology publications.
+**LunarLife** is an interactive AI-powered dashboard that helps scientists, mission planners, and enthusiasts explore 600+ NASA Space Biology publications.
 
 It uses **AI summarization, knowledge graphs, and intelligent search** to uncover the impact of decades of space bioscience research and highlight insights relevant to **future missions to the Moon and Mars**.
 
@@ -18,21 +18,26 @@ It uses **AI summarization, knowledge graphs, and intelligent search** to uncove
 ## 📂 Project Structure
 
 ```
-nasa-bio-explorer/
+LunarLife /
 │── app.py                     # Main Streamlit app (search + summaries + knowledge graph)
+│── fetch_abstracts.py         # To pull the abstracts via NCBI
 │── requirements.txt           # Python dependencies
 │── README.md                  # Project description
 │── data/
-│   └── publications_with_abstracts.csv  # CSV containing titles, links, and abstracts
+│   │── publications_with_abstracts.csv  # CSV containing titles, links, and abstracts
+│   └── publications.csv                 # CSV containing titles, links
 │── src/
 │   ├── preprocess.py          # Data cleaning & parsing
 │   ├── summarizer.py          # AI-based summarization & Q&A (OpenAI & Ollama)
 │   ├── knowledge_graph.py     # Knowledge graph builder
 │   └── search.py              # Search & filtering of publications
 │── pages/
-│   └── 2_Publication_Chat.py  # Streamlit multi-page: click publication → chat with AI
+│   ├── 2_Publication_Chat.py  # Streamlit multi-page: click publication → chat with AI
+│   └── 3_Knowledge_graph.py   # Streamlit multi-page: click Generate → Get a knwoledge grpah
 │── assets/
-│   └── demo_slides.pdf        # Demo slides for submission
+│   ├── demo_slides.pdf        # Demo slides for submission
+│   ├── graph.html             # Storage for Knowledge graph
+│   └── nasa_logo.png          # logo
 
 ```
 
@@ -45,35 +50,30 @@ nasa-bio-explorer/
    ```bash
    git clone https://github.com/your-username/nasa-bio-explorer.git
    cd nasa-bio-explorer
-
    ```
 
 2. Install dependencies:
 
    ```bash
    pip install -r requirements.txt
-
    ```
 
 3. Set up AI API keys (optional for OpenAI):
 
-```bash
- export OPENAI_API_KEY="your_openai_api_key"
-
-```
+   ```bash
+   export OPENAI_API_KEY="your_openai_api_key"
+   ```
 
 4. Run "fetch_abstracts.py" to fetch the publications with the abstracts:
 
-```bash
- python run fetch_abstracts.py"
-
-```
+   ```bash
+   python run fetch_abstracts.py"
+   ```
 
 5. Run the app:
 
    ```bash
    streamlit run app.py
-
    ```
 
 6. Open in your browser at:

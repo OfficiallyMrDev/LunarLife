@@ -238,3 +238,6 @@ web_modules/
 .stylelintcache
 # SvelteKit build / output directory
 .build/
+
+
+LICENSE

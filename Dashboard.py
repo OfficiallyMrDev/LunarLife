@@ -6,11 +6,11 @@ from src.search import search_publications
 from src.knowledge_graph import build_graph, visualize_graph
 from src.summarizer import summarize
 
-st.set_page_config(page_title="NASA Bio Explorer Dashboard", page_icon="🚀", layout="wide")
+st.set_page_config(page_title="LunarLife", page_icon="🚀", layout="wide")
 
 # --- Banner with logo/header image ---
 st.image("assets/nasa_logo.png", width=150)
-st.title("🚀 NASA Bio Explorer Dashboard")
+st.title("🚀 LunarLife ")
 st.markdown("Explore NASA space biology publications with AI-powered summaries and interactive visualizations.")
 
 # --- Load Data ---

@@ -13,7 +13,7 @@ def load_publications():
 publications = load_publications()
 
 def main():
-    st.title("Publication Chat")
+    st.title("LunarLife Publication Chat")
 
     # Sidebar controls
     ai_model = st.sidebar.selectbox("Select AI model", ["OpenAI", "Ollama"])
