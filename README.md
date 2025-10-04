@@ -17,21 +17,25 @@ It uses **AI summarization, knowledge graphs, and intelligent search** to uncove
 
 ## 📂 Project Structure
 
-```nasa-bio-explorer/
-│── app.py # Main Streamlit app
-│── requirements.txt # Dependencies
-│── README.md # Project description
+```
+nasa-bio-explorer/
+│── app.py                     # Main Streamlit app (search + summaries + knowledge graph)
+│── requirements.txt           # Python dependencies
+│── README.md                  # Project description
 │── data/
-│ └── publications.csv # NASA Space Biology publication list
+│   └── publications_with_abstracts.csv  # CSV containing titles, links, and abstracts
 │── src/
-│ ├── preprocess.py # Data cleaning & parsing
-│ ├── summarizer.py # AI-based summarization
-│ ├── knowledge_graph.py # Knowledge graph builder
-│ └── search.py # Search & filtering
+│   ├── preprocess.py          # Data cleaning & parsing
+│   ├── summarizer.py          # AI-based summarization & Q&A (OpenAI & Ollama)
+│   ├── knowledge_graph.py     # Knowledge graph builder
+│   └── search.py              # Search & filtering of publications
+│── pages/
+│   └── 2_Publication_Chat.py  # Streamlit multi-page: click publication → chat with AI
 │── assets/
-│ └── demo_slides.pdf # Slides for submission
+│   └── demo_slides.pdf        # Demo slides for submission
 
 ```
+
 ---
 
 ## 🚀 Quick Start
@@ -51,12 +55,12 @@ It uses **AI summarization, knowledge graphs, and intelligent search** to uncove
 
    ```
 
-3.	Set up AI API keys (optional for OpenAI):
+3. Set up AI API keys (optional for OpenAI):
 
-   ```bash
-    export OPENAI_API_KEY="your_openai_api_key"
+```bash
+ export OPENAI_API_KEY="your_openai_api_key"
 
-   ```
+```
 
 4. Run the app:
 
@@ -65,19 +69,19 @@ It uses **AI summarization, knowledge graphs, and intelligent search** to uncove
 
    ```
 
-4. Open in your browser at:
+5. Open in your browser at:
    ```bash
    http://localhost:8501
    ```
 
 ## 🔧 Tech Stack
 
-	•	Python 3.9+
-	•	Streamlit – Dashboard UI
-	•	OpenAI GPT-4 / Ollama – AI summarization
-	•	Pandas – Data handling
-	•	NetworkX – Knowledge graph
-	•	Matplotlib & PyVis – Visualization
+    •	Python 3.9+
+    •	Streamlit – Dashboard UI
+    •	OpenAI GPT-4 / Ollama – AI summarization
+    •	Pandas – Data handling
+    •	NetworkX – Knowledge graph
+    •	Matplotlib & PyVis – Visualization
 
 ## 📊 Data Sources (NASA)
 
