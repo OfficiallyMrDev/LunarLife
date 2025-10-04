@@ -29,14 +29,11 @@ LunarLife /
 │── src/
 │   ├── preprocess.py          # Data cleaning & parsing
 │   ├── summarizer.py          # AI-based summarization & Q&A (OpenAI & Ollama)
-│   ├── knowledge_graph.py     # Knowledge graph builder
 │   └── search.py              # Search & filtering of publications
 │── pages/
 │   ├── 2_Publication_Chat.py  # Streamlit multi-page: click publication → chat with AI
-│   └── 3_Knowledge_graph.py   # Streamlit multi-page: click Generate → Get a knwoledge grpah
 │── assets/
 │   ├── demo_slides.pdf        # Demo slides for submission
-│   ├── graph.html             # Storage for Knowledge graph
 │   └── nasa_logo.png          # logo
 
 ```
