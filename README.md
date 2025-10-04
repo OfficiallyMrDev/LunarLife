@@ -80,7 +80,7 @@ nasa-bio-explorer/
 
 ## 🎥 Demo
 
-Slides or demo video link: [Add your YouTube/Drive link here]
+Slides or demo video link: [vid]
 
 ⸻
 

@@ -15,6 +15,9 @@ df = load_data()
 st.sidebar.title("🚀 NASA Bio Explorer")
 section = st.sidebar.radio("Navigate", ["Home", "Search & Explore", "Knowledge Graph"])
 
+# Sidebar dropdown for summarization method
+method = st.sidebar.selectbox("Select summarization method", ["openai", "ollama"])
+
 # --- Home Page ---
 if section == "Home":
     st.title("🌌 NASA Bio Explorer Dashboard")
@@ -35,7 +38,7 @@ elif section == "Search & Explore":
             st.subheader(row['title'])
             st.write(f"**Authors:** {row['authors']}")
             st.write(f"**Year:** {row['year']}")
-            st.write(summarize_publication(row['abstract']))
+            st.write(summarize_publication(row['abstract'], method=method))
 
 # --- Knowledge Graph ---
 elif section == "Knowledge Graph":
