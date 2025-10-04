@@ -19,7 +19,7 @@ It uses **AI summarization, knowledge graphs, and intelligent search** to uncove
 
 ```
 Project LunarLife /
-│── app.py                     # Main Streamlit app (search + summaries + knowledge graph)
+│── Dashboard.py                # Main Streamlit app (search + summaries + knowledge graph)
 │── fetch_abstracts.py         # To pull the abstracts via NCBI
 │── requirements.txt           # Python dependencies
 │── README.md                  # Project description
@@ -31,7 +31,8 @@ Project LunarLife /
 │   ├── summarizer.py          # AI-based summarization & Q&A (OpenAI & Ollama)
 │   └── search.py              # Search & filtering of publications
 │── pages/
-│   ├── 2_Publication_Chat.py  # Streamlit multi-page: click publication → chat with AI
+│   ├── 2_Summarizer.py  # Streamlit multi-page: click publication → chat with AI
+    └── 3_Chat.py  # Streamlit multi-page: click publication → chat with AI
 │── assets/
 │   ├── demo_slides.pdf        # Demo slides for submission
 │   └── nasa_logo.png          # logo
