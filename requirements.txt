@@ -1,8 +1,22 @@
-streamlit
-pandas
-numpy
-scikit-learn
-transformers
-torch
-networkx
-matplotlib
+# Streamlit for interactive dashboard
+streamlit>=1.30.0
+
+# Data handling
+pandas>=2.1.0
+numpy>=1.25.0
+
+# AI summarization
+openai>=1.0.0
+requests>=2.31.0
+
+# Visualization & knowledge graphs
+networkx>=3.1
+matplotlib>=3.8.0
+pyvis>=0.3.2
+
+# Optional: text processing
+nltk>=3.8.0
+scikit-learn>=1.3.0
+
+# For PDF or file handling if needed
+PyPDF2>=3.0.1

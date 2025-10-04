@@ -1,16 +1,31 @@
+# src/knowledge_graph.py
 import networkx as nx
-import matplotlib.pyplot as plt
+from pyvis.network import Network
 
-def build_knowledge_graph(df):
+def build_graph(df, top_keywords=5):
+    """
+    Build a knowledge graph from publications.
+    Nodes: publications and top keywords from titles
+    Edges: publication -> keywords
+    """
     G = nx.Graph()
-    for _, row in df.head(50).iterrows():  # limit to first 50 for demo
-        title = row['title']
-        keywords = str(row.get('keywords', '')).split(',')
+    
+    for _, row in df.iterrows():
+        pub_node = row['title']
+        G.add_node(pub_node, label=row['title'], url=row['link'], color='lightblue')
+        
+        # Extract keywords from title (simple split for demo; can use NLP for real keywords)
+        keywords = row['title'].split()[:top_keywords]
         for kw in keywords:
-            G.add_node(title, type="paper")
-            G.add_node(kw.strip(), type="keyword")
-            G.add_edge(title, kw.strip())
+            G.add_node(kw, label=kw, color='orange')
+            G.add_edge(pub_node, kw)
+    
+    return G
 
-    fig, ax = plt.subplots(figsize=(10,6))
-    nx.draw(G, with_labels=True, node_size=500, font_size=8, ax=ax)
-    return fig
+def visualize_graph(G, output_file="assets/graph.html"):
+    """
+    Generate an interactive HTML graph visualization using pyvis.
+    """
+    net = Network(height="750px", width="100%", notebook=False)
+    net.from_nx(G)
+    net.show(output_file)

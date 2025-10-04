@@ -17,7 +17,7 @@ It uses **AI summarization, knowledge graphs, and intelligent search** to uncove
 
 ## 📂 Project Structure
 
-nasa-bio-explorer/
+```nasa-bio-explorer/
 │── app.py # Main Streamlit app
 │── requirements.txt # Dependencies
 │── README.md # Project description
@@ -31,6 +31,7 @@ nasa-bio-explorer/
 │── assets/
 │ └── demo_slides.pdf # Slides for submission
 
+```
 ---
 
 ## 🚀 Quick Start
@@ -50,7 +51,14 @@ nasa-bio-explorer/
 
    ```
 
-3. Run the app:
+3.	Set up AI API keys (optional for OpenAI):
+
+   ```bash
+    export OPENAI_API_KEY="your_openai_api_key"
+
+   ```
+
+4. Run the app:
 
    ```bash
    streamlit run app.py
@@ -64,12 +72,12 @@ nasa-bio-explorer/
 
 ## 🔧 Tech Stack
 
-    •	Python 3.9+
-    •	Streamlit – Dashboard UI
-    •	Transformers (Hugging Face) – Summarization model (BART)
-    •	Pandas – Data handling
-    •	NetworkX – Knowledge graph
-    •	Matplotlib – Visualization
+	•	Python 3.9+
+	•	Streamlit – Dashboard UI
+	•	OpenAI GPT-4 / Ollama – AI summarization
+	•	Pandas – Data handling
+	•	NetworkX – Knowledge graph
+	•	Matplotlib & PyVis – Visualization
 
 ## 📊 Data Sources (NASA)
 

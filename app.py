@@ -1,47 +1,65 @@
+# app.py
 import streamlit as st
 import pandas as pd
-from src.summarizer import summarize_publication
+from src.preprocess import load_and_clean
 from src.search import search_publications
-from src.knowledge_graph import build_knowledge_graph
+from src.knowledge_graph import build_graph, visualize_graph
+from src.summarizer import summarize_with_openai, summarize_with_ollama
 
-# Load dataset
+st.set_page_config(page_title="NASA Bio Explorer", layout="wide")
+
+st.title("🚀 NASA Bio Explorer Dashboard")
+st.markdown("Explore NASA space biology publications with AI-powered summaries and interactive visualizations.")
+
+# --- Load Data ---
 @st.cache_data
 def load_data():
-    return pd.read_csv("data/publications.csv")
+    return load_and_clean("data/publications_with_abstracts.csv")
 
 df = load_data()
 
-# Sidebar navigation
-st.sidebar.title("🚀 NASA Bio Explorer")
-section = st.sidebar.radio("Navigate", ["Home", "Search & Explore", "Knowledge Graph"])
+# --- Sidebar: Search ---
+st.sidebar.header("Search & Summarize")
+query = st.sidebar.text_input("Enter keyword to search publications")
+ai_choice = st.sidebar.radio("Summarization AI", ["OpenAI", "Ollama"])
+max_results = st.sidebar.slider("Max results to display", 1, 20, 5)
 
-# Sidebar dropdown for summarization method
-method = st.sidebar.selectbox("Select summarization method", ["openai", "ollama"])
+# --- Filter Publications ---
+if query:
+    # Filter publications by keyword in title or abstract
+    filtered_df = df[
+        df['title'].str.contains(query, case=False, na=False) |
+        df['abstract'].str.contains(query, case=False, na=False)
+    ]
+else:
+    filtered_df = df.copy()
 
-# --- Home Page ---
-if section == "Home":
-    st.title("🌌 NASA Bio Explorer Dashboard")
-    st.write("""
-    Welcome to NASA Bio Explorer!  
-    This interactive tool summarizes 600+ NASA space biology publications, 
-    helping scientists, mission planners, and enthusiasts explore the impact of 
-    decades of space bioscience research.
-    """)
+st.subheader(f"Showing {min(len(filtered_df), max_results)} publications")
 
-# --- Search & Explore ---
-elif section == "Search & Explore":
-    st.header("🔍 Explore Publications")
-    query = st.text_input("Enter keywords (e.g., radiation, plants, immune system)")
-    if query:
-        results = search_publications(df, query)
-        for _, row in results.iterrows():
-            st.subheader(row['title'])
-            st.write(f"**Authors:** {row['authors']}")
-            st.write(f"**Year:** {row['year']}")
-            st.write(summarize_publication(row['abstract'], method=method))
+for idx, row in filtered_df.head(max_results).iterrows():
+    st.markdown(f"**[{row['title']}]({row['link']})**")
+    
+    # Generate and display AI summary of the full abstract
+    with st.spinner("Generating summary..."):
+        if ai_choice == "OpenAI":
+            summary = summarize_with_openai(row['title'], row['abstract'])
+        else:
+            summary = summarize_with_ollama(row['title'], row['abstract'])
+    st.markdown(f"**Summary:** {summary}")
+    
+    # Follow-up Q&A box
+    question = st.text_area(f"Ask a question about this publication:", key=f"q_{idx}")
+    if question:
+        with st.spinner("Generating answer..."):
+            if ai_choice == "OpenAI":
+                answer = summarize_with_openai(question, row['abstract'])
+            else:
+                answer = summarize_with_ollama(question, row['abstract'])
+        st.markdown(f"**Answer:** {answer}")
 
 # --- Knowledge Graph ---
-elif section == "Knowledge Graph":
-    st.header("🧠 Knowledge Graph of NASA Bioscience")
-    fig = build_knowledge_graph(df)
-    st.pyplot(fig)
+st.subheader("📊 Knowledge Graph")
+if st.button("Generate Knowledge Graph"):
+    G = build_graph(filtered_df)
+    visualize_graph(G, "assets/graph.html")
+    st.markdown("Interactive graph saved to `assets/graph.html`. Open it in your browser to explore.")

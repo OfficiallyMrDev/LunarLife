@@ -1,48 +1,32 @@
+# summarizer.py
 import os
-import subprocess
+import openai
+import requests
 
-# Try importing OpenAI
-try:
-    import openai
-    openai_available = True
-except ImportError:
-    openai_available = False
+def summarize_with_openai(title, abstract):
+    prompt = f"Title: {title}\nAbstract: {abstract}\n\nSummarize this publication in one sentence."
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.5
+    )
+    return response['choices'][0]['message']['content']
 
-def summarize_publication(text, method="openai", max_tokens=200):
+def summarize_with_ollama(title, abstract, model="llama2"):
     """
-    Summarize text using:
-    - 'openai': OpenAI GPT API
-    - 'ollama': local Ollama model
+    Ollama API: expects a local Ollama server running or remote endpoint.
     """
-    if not text or not isinstance(text, str):
-        return "No abstract available."
-
-    # --- OpenAI API ---
-    if method == "openai" and openai_available:
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            return "OpenAI API key not set."
-        openai.api_key = api_key
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-mini",
-            messages=[
-                {"role": "system", "content": "Summarize research abstracts clearly and concisely."},
-                {"role": "user", "content": text}
-            ],
-            max_tokens=max_tokens
-        )
-        return response.choices[0].message.content.strip()
-
-    # --- Ollama ---
-    elif method == "ollama":
-        try:
-            # Replace 'mistral' with the Ollama model you have installed
-            cmd = ["ollama", "run", "gpt-oss:20b-cloud"]
-            proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
-            output, _ = proc.communicate(text)
-            return output.strip()
-        except Exception:
-            return "Ollama summarization failed."
-
-    # --- Fallback ---
-    return "No summarization method available or method not installed."
+    prompt = f"Title: {title}\nAbstract: {abstract}\n\nSummarize this publication in one sentence."
+    url = f"http://localhost:11434/api/v1/generate"  # Default local Ollama server
+    payload = {
+        "model": model,
+        "prompt": prompt,
+        "max_tokens": 150
+    }
+    try:
+        r = requests.post(url, json=payload)
+        r.raise_for_status()
+        data = r.json()
+        return data['completion']  # Ollama returns the text in 'completion'
+    except Exception as e:
+        return f"Error: {e}"
