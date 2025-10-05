@@ -1,30 +1,23 @@
 # 🚀 Project LunarLife
 
+<div align="center">
+  <img src="assets/logorm.png" alt="LunarLife Logo" width="220" />
+</div>
+
+<div align="center" style="margin-top: 1em; margin-bottom: 1em;">
+  <a href="https://www.spaceappschallenge.org/2025/find-a-team/the-officials/?tab=details" target="_blank">
+    <img alt="NASA Space Apps Team" src="https://img.shields.io/badge/Team-NASA%20Space%20Apps-blue?logo=nasa&logoColor=white&style=for-the-badge">
+  </a>
+  &nbsp;
+  <a href="https://drive.google.com/drive/folders/1_wZlx6Gok_gQpxq_MUXj3_VlhsbM8SDd?usp=sharing" target="_blank">
+    <img alt="Google Drive" src="https://img.shields.io/badge/Google%20Drive-Project%20Files-green?logo=google-drive&logoColor=white&style=for-the-badge">
+  </a>
+</div>
+
 **Project LunarLife** is an AI-powered bioscience exploration platform that enables scientists, mission planners, and enthusiasts to analyze and visualize over 600 NASA Space Biology publications using summarization, knowledge graphs, and intelligent search.
 
 _Built for the **NASA Space Apps Challenge 2025**, LunarLife bridges the gap between space research data and human insight._
 
-## 📸 Project Screenshots
-
-Here’s a preview of the LunarLife interface showcasing real-time AI summarization and interactive chat capabilities.
-
-### 🛰️ Dashboard Interface
-
-An overview of the LunarLife dashboard and navigation layout.
-
-![Dashboard Interface](assets/dashboard.png)
-
----
-
-### 🤖 AI Summarizer & Chat
-
-Demonstrating the AI Summarizer in action and its interactive chat assistant.
-
-![Summarizer View 1](assets/Summarizer1.png)
-![Summarizer View 2](assets/Summarizer2.png)
-![Summarizer View 3](assets/Summarizer3.png)
-![Summarizer View 4](assets/Summarizer4.png)
-![Chat Interface](assets/Chat.png)
 
 ## 🌌 Features
 
@@ -180,3 +173,29 @@ Project LunarLife /
 Developed for the **NASA Space Apps Challenge 2025** by Team TheOfficials. Powered by open-source tools, AI, and NASA’s public bioscience datasets.
 
 ---
+
+## 📸 Project Screenshots
+
+Here’s a preview of the LunarLife interface showcasing real-time AI summarization and interactive chat capabilities.
+
+### 🛰️ Dashboard Interface
+
+An overview of the LunarLife dashboard and navigation layout.
+
+![Dashboard Interface](assets/dashboard.png)
+
+---
+
+### 🤖 AI Summarizer & Chat
+
+Demonstrating the AI Summarizer in action and its interactive chat assistant.
+
+![Summarizer View 1](assets/Summarizer1.png)
+![Summarizer View 2](assets/Summarizer2.png)
+![Summarizer View 3](assets/Summarizer3.png)
+![Summarizer View 4](assets/Summarizer4.png)
+![Chat Interface](assets/Chat.png)
+
+
+---
+
