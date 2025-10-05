@@ -1,8 +1,10 @@
-# 🚀 Project LunarLife
+# Project LunarLife
 
 <div align="center">
   <img src="assets/logorm.png" alt="LunarLife Logo" width="220" />
 </div>
+
+<br>
 
 <div align="center" style="margin-top: 1em; margin-bottom: 1em;">
   <a href="https://www.spaceappschallenge.org/2025/find-a-team/the-officials/?tab=details" target="_blank">
@@ -18,25 +20,24 @@
 
 _Built for the **NASA Space Apps Challenge 2025**, LunarLife bridges the gap between space research data and human insight._
 
+## Features
 
-## 🌌 Features
-
-- 🔍 **Smart Search**: Search publications by keywords (e.g., radiation, plants, immune system).
-- 📝 **AI Summaries**: Automatic summarization of research abstracts using transformer models.
-- 🧠 **Knowledge Graphs**: Visualize connections between studies, keywords, and biological systems.
-- 📊 **Interactive Dashboard**: Built with [Streamlit](https://streamlit.io) for fast, user-friendly exploration.
-- 🚀 **Multi-AI Support**: Seamlessly switch between OpenAI and Ollama models.
-- 🧩 **Modular Architecture**: Easy to extend for future datasets or AI tools.
+- **Smart Search**: Search publications by keywords (e.g., radiation, plants, immune system).
+- **AI Summaries**: Automatic summarization of research abstracts using transformer models.
+- **Knowledge Graphs**: Visualize connections between studies, keywords, and biological systems.
+- **Interactive Dashboard**: Built with [Streamlit](https://streamlit.io) for fast, user-friendly exploration.
+- **Multi-AI Support**: Seamlessly switch between OpenAI and Ollama models.
+- **Modular Architecture**: Easy to extend for future datasets or AI tools.
 
 ---
 
-## 📖 Project Overview
+## Project Overview
 
 **LunarLife** enables users to explore NASA Space Biology research in an interactive, AI-powered environment. It bridges the gap between raw data and actionable insight by providing summaries, interactive graphs, and an AI chat interface. This helps researchers, mission planners, and students quickly understand trends, interconnections, and key findings from hundreds of publications.
 
 ---
 
-## 🔍 How It Works
+## How It Works
 
 1. **Data Ingestion:** Fetches publications and abstracts from NASA databases and verifies metadata via PubMed/NCBI.
 2. **AI Summarization:** Uses GPT-4 and Ollama models to generate concise summaries and answer user queries.
@@ -46,7 +47,7 @@ _Built for the **NASA Space Apps Challenge 2025**, LunarLife bridges the gap bet
 
 ---
 
-## 🌟 Benefits
+## Benefits
 
 - Accelerates literature review by summarizing complex research.
 - Visualizes hidden relationships in space bioscience data.
@@ -55,7 +56,7 @@ _Built for the **NASA Space Apps Challenge 2025**, LunarLife bridges the gap bet
 
 ---
 
-## 📦 Installation & Usage
+## Installation & Usage
 
 - Ensure Python 3.9+ and virtual environment setup.
 - Install dependencies: `pip install -r requirements.txt`
@@ -66,7 +67,7 @@ _Built for the **NASA Space Apps Challenge 2025**, LunarLife bridges the gap bet
 
 ---
 
-## 💡 Future Enhancements
+## Future Enhancements
 
 - Expand dataset with more NASA and international space biology studies.
 - Integrate automated citation and trend analysis.
@@ -75,7 +76,7 @@ _Built for the **NASA Space Apps Challenge 2025**, LunarLife bridges the gap bet
 
 ---
 
-## 📚 References & Resources
+## References & Resources
 
 - NASA Space Biology Publications: https://github.com/jgalazka/SB_publications/tree/main
 - NASA Open Science Data Repository: https://osdr.nasa.gov/
@@ -84,7 +85,7 @@ _Built for the **NASA Space Apps Challenge 2025**, LunarLife bridges the gap bet
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 Project LunarLife /
@@ -110,7 +111,7 @@ Project LunarLife /
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 1. Clone the repo:
 
@@ -148,7 +149,7 @@ Project LunarLife /
    http://localhost:8501
    ```
 
-## 🔧 Tech Stack
+## Tech Stack
 
     •	Python 3.9+
     •	Streamlit – Dashboard UI
@@ -157,7 +158,7 @@ Project LunarLife /
     •	NetworkX – Knowledge graph
     •	Matplotlib & PyVis – Visualization
 
-## 📊 Data Sources (NASA)
+## Data Sources (NASA)
 
     •	NASA Space Biology Publications (608 studies)
     •	NASA Open Science Data Repository (OSDR)
@@ -168,17 +169,17 @@ Project LunarLife /
 
 ⸻
 
-## ✨ Team & Credits
+## Team & Credits
 
-Developed for the **NASA Space Apps Challenge 2025** by Team TheOfficials. Powered by open-source tools, AI, and NASA’s public bioscience datasets.
+Developed for the **NASA Space Apps Challenge 2025** by **Team TheOfficials**. Powered by open-source tools, AI, and NASA’s public bioscience datasets.
 
 ---
 
-## 📸 Project Screenshots
+## Project Screenshots
 
 Here’s a preview of the LunarLife interface showcasing real-time AI summarization and interactive chat capabilities.
 
-### 🛰️ Dashboard Interface
+### Dashboard Interface
 
 An overview of the LunarLife dashboard and navigation layout.
 
@@ -186,7 +187,7 @@ An overview of the LunarLife dashboard and navigation layout.
 
 ---
 
-### 🤖 AI Summarizer & Chat
+### AI Summarizer & Chat
 
 Demonstrating the AI Summarizer in action and its interactive chat assistant.
 
@@ -196,6 +197,4 @@ Demonstrating the AI Summarizer in action and its interactive chat assistant.
 ![Summarizer View 4](assets/Summarizer4.png)
 ![Chat Interface](assets/Chat.png)
 
-
 ---
-
