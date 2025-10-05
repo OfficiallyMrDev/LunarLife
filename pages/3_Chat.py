@@ -2,6 +2,7 @@ import streamlit as st
 from src.summarizer import summarize
 import pandas as pd
 from datetime import datetime
+import asyncio # Import asyncio at the top
 
 # Page Configuration
 st.set_page_config(
@@ -11,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS
+# Custom CSS (Left unchanged)
 st.markdown("""
 <style>
     .stApp {
@@ -74,6 +75,10 @@ def load_publications():
         "Link": "link",
         "Results/Conclusion": "results_conclusion"
     })
+    # Ensure all columns exist, adding defaults if necessary
+    for col in ["authors", "year"]:
+        if col not in df.columns:
+            df[col] = "N/A"
     return df.to_dict(orient='records')
 
 publications = load_publications()
@@ -85,6 +90,35 @@ def format_citation(pub):
     title = pub["title"]
     return f"{authors} ({year}). {title}."
 
+# --- Helper function for AI call (using synchronous wrapper) ---
+def get_ai_response(title, prompt, method):
+    """Synchronously calls the async summarize function."""
+    try:
+        # Use asyncio.run() to execute the async function and block until it's done.
+        # This is the cleanest way to call a simple async function from a sync Streamlit context.
+        response = asyncio.run(summarize(
+            title=title,
+            abstract=prompt,
+            method=method
+        ))
+
+        # Extract AI reply
+        if hasattr(response, "error") and response.error:
+            return f"⚠️ Error: {response.error}"
+        elif hasattr(response, "key_findings") and response.key_findings:
+            # Join findings into a single string for display
+            return "\n".join(response.key_findings) 
+        elif hasattr(response, "results") and response.results:
+            return response.results
+        elif hasattr(response, "introduction") and response.introduction:
+            return response.introduction
+        else:
+            return "The AI did not return a structured response. Try rephrasing your question."
+            
+    except Exception as e:
+        return f"An unexpected error occurred during AI processing: {str(e)}"
+
+# --- Main Application Logic ---
 def main():
     # Header
     col1, col2 = st.columns([2,3])
@@ -104,18 +138,21 @@ def main():
         st.markdown("### AI Configuration")
         ai_model = st.selectbox(
             "Select AI Model",
-            ["openai", "ollama"],
+            ["ollama", "openai"],
             help="Choose the AI model for research analysis"
         )
         
         st.markdown("### Publication Selection")
         titles = [pub["title"] for pub in publications]
-        selected_title = st.selectbox("Select a publication", titles)
+        
+        # Use a key to ensure consistent state management for the selection
+        selected_title = st.selectbox("Select a publication", titles, key='selected_pub_title')
         
         st.markdown("### Analysis Options")
         include_results = st.checkbox(
             "Include Results/Conclusion in AI prompt",
-            help="Include additional context from the research results"
+            help="Include additional context from the research results",
+            key='include_results_checkbox'
         )
 
     # Find selected publication
@@ -135,16 +172,21 @@ def main():
 
     st.markdown("---")
 
-    # Initialize chat history in session state
+    # Initialize chat history in session state, specific to the publication
     chat_key = f"chat_history_{selected_title}"
     if chat_key not in st.session_state:
         st.session_state[chat_key] = []
+    
+    # Initialize input for clearing the text area
+    if 'user_input' not in st.session_state:
+        st.session_state['user_input'] = ""
 
     # Chat interface
     st.markdown("### 💬 Research Discussion")
 
-    # Display chat history
-    for i, chat in enumerate(st.session_state[chat_key]):
+    # Display chat history (Iterate backward for "bottom-up" display if preferred, 
+    # but the current implementation is fine for top-down)
+    for chat in st.session_state[chat_key]:
         # User message
         st.markdown(f"""
         <div class="chat-message user-message">
@@ -156,56 +198,55 @@ def main():
         st.markdown(f"""
         <div class="chat-message ai-message">
             <p><strong>Research Assistant:</strong></p>
-            <p>{chat['ai'].results if hasattr(chat['ai'], 'results') else str(chat['ai'])}</p>
+            <p>{str(chat['ai'])}</p>
         </div>
         """, unsafe_allow_html=True)
 
+    # Function to clear the input text after submission
+    def clear_input():
+        st.session_state['user_input'] = ""
+
     # Chat input form
-    with st.form(key="chat_form"):
-        user_input = st.text_area(
+    with st.form(key="chat_form", clear_on_submit=True):
+        user_input_value = st.text_area(
             "Ask a question about this publication:",
+            key="input_text_area", # Key to read the value
             placeholder="e.g., What are the key findings of this research?"
         )
+        
         submit_col1, submit_col2 = st.columns([6,1])
         with submit_col2:
             submitted = st.form_submit_button("Send 🚀")
 
-    if submitted and user_input:
+    if submitted and user_input_value:
         # Prepare prompt with abstract and additional context
         prompt = f"""Based on this research abstract, please answer the following question.
         
 Abstract: {publication['abstract']}
 
-Question: {user_input}"""
+Question: {user_input_value}"""
         
         if include_results and publication.get("results_conclusion"):
             prompt += f"\n\nAdditional Context - Results/Conclusion: {publication['results_conclusion']}"
         
-        try:
-            with st.spinner("Analyzing research literature..."):
-                # Handle async summarization
-                import asyncio
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-                try:
-                    response = loop.run_until_complete(summarize(
-                        title=selected_title,
-                        abstract=prompt,
-                        method=ai_model
-                    ))
-                    # Convert response to string if it's not already
-                    response_text = str(response.results) if hasattr(response, 'results') else str(response)
-                    # Append to chat history
-                    st.session_state[chat_key].append({
-                        "user": user_input,
-                        "ai": response_text
-                    })
-                finally:
-                    loop.close()
-            # Clear the input after sending by resetting the form's text area
-            user_input = ""
-        except Exception as e:
-            st.error(f"An error occurred: {str(e)}")    # Footer
+        with st.spinner("Analyzing research literature..."):
+            # CALL THE NEW SYNCHRONOUS HELPER FUNCTION
+            response_text = get_ai_response(
+                title=selected_title,
+                prompt=prompt,
+                method=ai_model
+            )
+            
+            # Append to chat history
+            st.session_state[chat_key].append({
+                "user": user_input_value,
+                "ai": response_text
+            })
+            
+            # Rerun the app to display the new chat messages
+            st.rerun()
+
+    # Footer
     st.markdown("---")
     st.markdown("""
     <div style="text-align: center; color: rgba(255,255,255,0.6);">

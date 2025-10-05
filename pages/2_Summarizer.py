@@ -20,12 +20,6 @@ st.set_page_config(
 )
 
 # Set custom theme
-st.markdown("""
-    :root {
-        --primary-color: #4CAF50;
-        --background-color: #1a1a2e;
-    }
-""", unsafe_allow_html=True)
 
 # Header Section
 col1, col2 = st.columns([2,3])
@@ -467,7 +461,7 @@ with tab2:
                         ])
                         
                         # Convert selected model to summarizer method
-                        method = "openai" if ai_choice == "openai" else "ollama"
+                        method = "ollama" if ai_choice == "ollama" else "openai"
                         
                         # Handle async summarization
                         import asyncio
